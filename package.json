@@ -1,0 +1,35 @@
+{
+    "//": [
+        "[exports/./types] for TypeScript resolution - must occur first!",
+        "[exports/./import] for 'import my-package' in esm",
+        "[exports/./require] for 'require(my-package)' in cjs",
+        "[main] for CJS fall-back for older versions of Node.js",
+        "[types] for Fall-back for older versions of TypeScript"
+    ],
+    "name": "map-with-comparer",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.mjs",
+            "require": "./dist/cjs/index.cjs"
+        }
+    },
+    "main": "./dist/cjs/index.cjs",
+    "types": "./dist/types/index.d.ts",
+    "author": "",
+    "dependencies": {
+        "jsbi": "^4.3.0"
+    },
+    "scripts": {
+        "watch": "tsc --watch --noEmit --noErrorTruncation --pretty",
+        "build": "rm -rf ./dist && npx tsc --project tsconfig.esm.json && npx tsc --project tsconfig.cjs.json && npm run build:wrap-cjs && npm run build:wrap-esm",
+        "build:wrap-cjs": "node ./tools/wrap-cjs",
+        "build:wrap-esm": "node ./tools/wrap-esm"
+    },
+    "devDependencies": {
+        "typescript": "^4.7.4"
+    }
+}

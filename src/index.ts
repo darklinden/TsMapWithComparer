@@ -102,8 +102,10 @@ export class Dictionary<K, V> {
         let t = this;
 
         const setProperty = (value: any): any => {
-            if (value !== null && typeof value === 'object' && convertObjs) return new Dictionary<any, any>().fromJSON(value, true);
-            if (Array.isArray(value) && convertObjs) return value.map(v => setProperty(v));
+            if (value !== null && typeof value === 'object' && convertObjs)
+                return new Dictionary<any, any>().fromJSON(value, true);
+            if (Array.isArray(value) && convertObjs)
+                return value.map(v => setProperty(v));
             return value;
         }
 
